@@ -32,7 +32,7 @@ const HomePage = ({
         case "price_desc":
           return b.current_price - a.current_price;
         case "price_asc":
-          return a.current_price - a.current_price;
+          return a.current_price - b.current_price;
         case "change_desc":
           return b.price_change_percentage_24h - a.price_change_percentage_24h;
         case "change_asc":

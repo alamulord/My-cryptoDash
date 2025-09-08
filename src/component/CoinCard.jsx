@@ -17,7 +17,8 @@ const Coincard = ({ coin }) => {
             coin.price_change_percentage_24h >= 0 ? "positive" : "negative"
           }
         >
-          24h Price Change: {coin.price_change_percentage_24h.toFixed(2)}
+          24h Price Change:{" "}
+          {coin.price_change_percentage_24h?.toFixed(2) ?? "N/A"}%
         </p>
         <p>Market Cap: {coin.market_cap.toLocaleString()}</p>
       </div>

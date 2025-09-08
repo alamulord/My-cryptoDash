@@ -20,11 +20,11 @@ const App = () => {
     const getData = async () => {
       try {
         const response = await fetch(
-          `${API_URL}/markets?vs_currency=usd&order=market_cap_desc&per_page=${limit}&page=1&sparkline=false`
+          `${API_URL}&per_page=${limit}&page=1&sparkline=false`
         );
+        console.log(response);
         if (!response.ok) throw new Error("Failed in fetching data");
         const data = await response.json();
-        // console.log(data);
         setCoins(data);
       } catch (err) {
         setError(err.message);

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import Spinners from "../component/Spinner";
 import Chart from "../component/Chart";
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL_COIN;
 
 const CardDetailPage = () => {
   const { id } = useParams();
