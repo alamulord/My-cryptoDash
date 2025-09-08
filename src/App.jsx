@@ -22,7 +22,7 @@ const App = () => {
         const response = await fetch(
           `${API_URL}&per_page=${limit}&page=1&sparkline=false`
         );
-        console.log(response);
+        // console.log(response);
         if (!response.ok) throw new Error("Failed in fetching data");
         const data = await response.json();
         setCoins(data);
