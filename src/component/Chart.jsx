@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-
 import { Line } from "react-chartjs-2";
 
 import {
@@ -13,7 +12,6 @@ import {
   LineElement,
 } from "chart.js";
 import "chartjs-adapter-date-fns";
-// import { callback } from "chart.js/helpers";
 
 Chartjs.register(
   CategoryScale,
@@ -35,11 +33,16 @@ const Chart = ({ coinid }) => {
   useEffect(() => {
     const fetchPrices = async () => {
       try {
+        setLoading(true);
+        setError(null);
+
         const res = await fetch(
           `${API_URL}/${coinid}/market_chart?vs_currency=usd&days=7`
         );
-        if (!res.ok) throw new Error("Failed fetching Response");
+        if (!res.ok) throw new Error("Failed fetching response");
+
         const data = await res.json();
+
         const prices = data.prices.map((price) => ({
           x: price[0],
           y: price[1],
@@ -58,17 +61,21 @@ const Chart = ({ coinid }) => {
             },
           ],
         });
-      } catch (error) {
-        setError(error.message || "Can't fetch Data");
+      } catch (err) {
+        console.error(err);
+        setError(err.message || "Something went wrong");
       } finally {
         setLoading(false);
-        setError(null);
       }
     };
+
     fetchPrices();
   }, [coinid]);
+
   if (loading) return <p>Loading chart...</p>;
   if (error) return <div style={{ color: "red" }}>⚠️ {error}</div>;
+  if (!chartData) return <p>No data available</p>;
+
   return (
     <div style={{ marginTop: "30px" }}>
       <Line
@@ -82,13 +89,8 @@ const Chart = ({ coinid }) => {
           scales: {
             x: {
               type: "time",
-              time: {
-                unit: "day",
-              },
-              ticks: {
-                autoSkip: true,
-                maxTicksLimit: 7,
-              },
+              time: { unit: "day" },
+              ticks: { autoSkip: true, maxTicksLimit: 7 },
             },
             y: {
               ticks: {
